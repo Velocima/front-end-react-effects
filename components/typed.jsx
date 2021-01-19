@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import style from '../styles/typed.module.css';
 
-export default function Typed({ prefix, words, suffix }) {
+export default function Typed({ prefix, words, suffix, textInsertion }) {
 	const [isTypingDirectionForward, setIsTypingDirectionForward] = useState(true);
 	const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
 	const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -11,7 +12,6 @@ export default function Typed({ prefix, words, suffix }) {
 			throw new Error(`Words Array contains non string operand ${word} at index ${index}`);
 		if (word === '') throw new Error(`Words Array contains empty string at index ${index}`);
 	});
-
 	useEffect(() => {
 		const handleChange = () => {
 			setIsTypingDirectionForward((prevState) => {
@@ -56,7 +56,10 @@ export default function Typed({ prefix, words, suffix }) {
 
 	return (
 		<>
-			<p>{`${prefix || ''} ${typedWord}${suffix || ''}`}</p>
+			<p className={style.typed}>
+				{`${prefix || ''} ${typedWord}${suffix || ''}`}
+				<span style={{ display: textInsertion ? 'inline' : 'none' }}>|</span>
+			</p>
 		</>
 	);
 }

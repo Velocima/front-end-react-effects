@@ -12,7 +12,7 @@ export default function Home() {
 			<main className={styles.main}>
 				<h1>Hello World</h1>
 
-				<Typed prefix='Hello' words={['Max', 'World', 'Matt']} />
+				<Typed prefix='Hello' words={['Max', 'World', 'Matt']} textInsertion />
 			</main>
 		</>
 	);

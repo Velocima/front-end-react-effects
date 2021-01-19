@@ -1,0 +1,21 @@
+.typed span {
+	animation: typeIndicatorFlash 0.8s infinite;
+}
+
+@keyframes typeIndicatorFlash {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
