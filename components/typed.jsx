@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Typed({ prefix, words }) {
+export default function Typed({ prefix, words, suffix }) {
 	const [isTypingDirectionForward, setIsTypingDirectionForward] = useState(true);
 	const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
 	const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -54,51 +54,9 @@ export default function Typed({ prefix, words }) {
 		return () => clearTimeout(intervalID);
 	}, [typedWord]);
 
-	const handleChange = () => {
-		setIsTypingDirectionForward((prevState) => {
-			if (typedWord.length === 1 && !prevState) return true;
-			if (
-				`${typedWord}${words[currentWordIndex][currentLetterIndex]}` ===
-				words[currentWordIndex]
-			)
-				return false;
-			return prevState;
-		});
-		setCurrentLetterIndex((prevState) => {
-			if (typedWord === words[currentWordIndex]) return 0;
-			if (!isTypingDirectionForward) {
-				return prevState;
-			}
-			return prevState + 1;
-		});
-		setCurrentWordIndex((prevState) => {
-			if (typedWord.length === 1 && !isTypingDirectionForward) {
-				return prevState === words.length - 1 ? 0 : prevState + 1;
-			}
-			return prevState;
-		});
-		setTypedWord((prevState) => {
-			if (isTypingDirectionForward) {
-				return prevState.concat(words[currentWordIndex][currentLetterIndex]);
-			} else {
-				return prevState.slice(0, -1);
-			}
-		});
-	};
-
 	return (
 		<>
-			<p>{`${prefix} ${typedWord}`}</p>
-			{/* <button onClick={handleChange}>next</button>
-			<p>
-				{`typing direction ${isTypingDirectionForward}`}
-				<br />
-				{`currentLetterIndex ${currentLetterIndex}`}
-				<br />
-				{`currentWordIndex ${currentWordIndex}`}
-				<br />
-				{`typed word ${typedWord}`}
-			</p> */}
+			<p>{`${prefix || ''} ${typedWord}${suffix || ''}`}</p>
 		</>
 	);
 }
