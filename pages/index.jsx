@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/index.module.css';
+import Typed from '../components/typed';
 
 export default function Home() {
 	return (
@@ -10,6 +11,8 @@ export default function Home() {
 			</Head>
 			<main className={styles.main}>
 				<h1>Hello World</h1>
+
+				<Typed prefix='Hello' words={['Max', 'World', 'Matt']} />
 			</main>
 		</>
 	);
