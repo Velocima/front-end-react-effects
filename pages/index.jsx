@@ -4,6 +4,7 @@ import Typed from '../components/typed';
 import Link from 'next/link';
 import ClickRipple from '../components/clickRipple';
 import { useState } from 'react';
+import Nav from '../components/nav';
 
 export default function Home() {
 	const [isClickRippleOffset, setIsClickRippleOffset] = useState(false);
@@ -15,6 +16,7 @@ export default function Home() {
 				<title>Create Next App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+			<Nav />
 			<main className={styles.main}>
 				<Typed
 					prefix='Hello'
