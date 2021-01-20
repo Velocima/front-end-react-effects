@@ -9,8 +9,31 @@
 	font-weight: 400;
 	font-size: 70px;
 	padding: 30px 0;
+	color: #283149;
 }
 
 .main p {
 	font-size: 50px;
+}
+
+.main button {
+	background-color: #d3f4ff;
+	color: 283149;
+	font-size: 30px;
+	margin: 20px 0;
+	padding: 20px;
+	border-radius: 10px;
+	transition: all 0.15s, background-color 0.3s;
+	border: none;
+	box-shadow: 2px 6px 8px #404b69;
+}
+
+.main button:active {
+	background-color: #ff9dbe;
+	border: none;
+	box-shadow: 1px 3px 4px #404b69;
+	transform: translate(1px, 3px);
+}
+.main button:focus {
+	outline: none;
 }

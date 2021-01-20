@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import style from '../styles/typed.module.css';
 
-export default function Typed({ prefix, words, suffix, textInsertion }) {
+export default function Typed({ prefix, words, suffix, textInsertion, isPaused }) {
 	const [isTypingDirectionForward, setIsTypingDirectionForward] = useState(true);
 	const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
 	const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -14,6 +14,7 @@ export default function Typed({ prefix, words, suffix, textInsertion }) {
 	});
 	useEffect(() => {
 		const handleChange = () => {
+			if (isPaused) return;
 			setIsTypingDirectionForward((prevState) => {
 				if (typedWord.length === 1 && !prevState) return true;
 				if (
@@ -52,7 +53,7 @@ export default function Typed({ prefix, words, suffix, textInsertion }) {
 				: 100 + Math.floor(Math.random() * 50)
 		);
 		return () => clearTimeout(intervalID);
-	}, [typedWord]);
+	}, [typedWord, isPaused]);
 
 	return (
 		<>
