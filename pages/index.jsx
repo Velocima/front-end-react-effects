@@ -23,13 +23,13 @@ export default function Home() {
 					isPaused={isTypedPaused}
 				/>
 				<button onClick={() => setIsTypedTextInsertion((prevState) => !prevState)}>
-					toggle textInsertion
+					{`Text insertion: ${isTypedTextInsertion ? 'Visible' : 'Hidden'}`}
 				</button>
 				<button onClick={() => setIsTypedPaused((prevState) => !prevState)}>
-					toggle typed playstate
+					{`Text playstate: ${!isTypedPaused ? 'Playing' : 'Paused'}`}
 				</button>
 				<button onClick={() => setIsClickRippleOffset((prevState) => !prevState)}>
-					toggle click ripple offset
+					{`Ripple center: ${!isClickRippleOffset ? 'Center' : 'Off center'}`}
 				</button>
 				<ClickRipple offCenter={isClickRippleOffset} />
 			</main>
