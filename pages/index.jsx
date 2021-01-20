@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/index.module.css';
 import Typed from '../components/typed';
+import Link from 'next/link';
 
 export default function Home() {
 	return (

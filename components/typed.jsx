@@ -57,7 +57,9 @@ export default function Typed({ prefix, words, suffix, textInsertion }) {
 	return (
 		<>
 			<p className={style.typed}>
-				{`${prefix || ''} ${typedWord}${suffix || ''}`}
+				{`${prefix || ''}${prefix ? ' ' : ''}${typedWord}${suffix ? ' ' : ''}${
+					suffix || ''
+				}`}
 				<span style={{ display: textInsertion ? 'inline' : 'none' }}>|</span>
 			</p>
 		</>
