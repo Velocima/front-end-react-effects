@@ -21,7 +21,6 @@ export default function scrollBar({ backgroundColor, barColor }) {
 		};
 		window.addEventListener('scroll', onScroll, { passive: true });
 		onScroll();
-		console.log(documentHeight, height);
 	}, [height]);
 	const backgroundStyle = {
 		backgroundColor,
