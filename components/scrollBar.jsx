@@ -33,8 +33,27 @@ export default function scrollBar({ backgroundColor, barColor }) {
 	};
 	const barStyle = { backgroundColor: barColor, height: `${scrollPercentage}vh`, width: '10px' };
 
+	const [scrollClickHeight, setScrollClickHeight] = useState(0);
+
+	const handleClick = ({ clientY }) => {
+		setScrollClickHeight(clientY);
+	};
+	useEffect(() => {
+		const body = document.body,
+			html = document.documentElement;
+		const documentHeight =
+			Math.max(
+				body.scrollHeight,
+				body.offsetHeight,
+				html.clientHeight,
+				html.scrollHeight,
+				html.offsetHeight
+			) - height;
+		window.scrollTo(0, (scrollClickHeight * documentHeight) / height);
+	}, [scrollClickHeight]);
+
 	return (
-		<div style={backgroundStyle}>
+		<div style={backgroundStyle} onClick={handleClick}>
 			<div style={barStyle}></div>
 		</div>
 	);

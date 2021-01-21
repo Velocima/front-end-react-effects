@@ -4,7 +4,6 @@
 	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
-	overflow-x: hidden;
 }
 
 .filler {
@@ -29,6 +28,7 @@
 	place-items: center start;
 	background: transparent linear-gradient(239deg, #dbedf3 0%, #f73859 100%) 0% 0% no-repeat
 		padding-box;
+	overflow-x: hidden;
 }
 
 .sideScroll h2 {
