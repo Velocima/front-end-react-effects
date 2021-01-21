@@ -9,7 +9,7 @@ export default function Nav() {
 				<ul>
 					{pages.map((page) => {
 						return (
-							<li>
+							<li key={page}>
 								<Link href={page}>
 									<a>{page === '/' ? 'home' : page.slice(1)}</a>
 								</Link>

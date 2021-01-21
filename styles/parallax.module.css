@@ -1,0 +1,34 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+}
+
+.filler {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: transparent linear-gradient(239deg, #dbedf3 0%, #f73859 100%) 0% 0% no-repeat
+		padding-box;
+	color: #283149;
+}
+
+.filler h1 {
+	font-size: 100px;
+	padding: 20px;
+}
+
+.first {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: 50vh;
+}
+.parallaxOne {
+	background-image: url('/parallax/coffee1.jpg');
+	background-size: cover;
+	/* background-repeat: no-repeat; */
+}
