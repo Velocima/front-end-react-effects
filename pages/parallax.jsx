@@ -8,6 +8,10 @@ export default function Parallax() {
 	const parallaxOneStyle = {
 		backgroundPosition: `center ${perc}%`,
 	};
+
+	const sideScrollRef = useRef(null);
+	const sidePerc = useViewPercent(sideScrollRef);
+	const sideScrollStyle = { transform: `translateX(${sidePerc * 1.41}vw)` };
 	return (
 		<>
 			<Nav />
@@ -15,15 +19,13 @@ export default function Parallax() {
 				<div className={style.filler}>
 					<h1>Scroll For Parallax</h1>
 				</div>
-				<div className={style.first}>
-					<div></div>
-					<div
-						style={parallaxOneStyle}
-						className={style.parallaxOne}
-						ref={imageOneRef}
-					></div>
-				</div>
+				<div style={parallaxOneStyle} className={style.parallaxOne} ref={imageOneRef}></div>
 
+				<div className={style.sideScroll}>
+					<h2 style={sideScrollStyle} ref={sideScrollRef}>
+						More Parallax
+					</h2>
+				</div>
 				<div className={style.filler}></div>
 			</main>
 		</>

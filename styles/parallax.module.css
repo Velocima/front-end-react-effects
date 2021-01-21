@@ -4,6 +4,7 @@
 	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
+	overflow-x: hidden;
 }
 
 .filler {
@@ -22,13 +23,25 @@
 	padding: 20px;
 }
 
-.first {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+.sideScroll {
 	height: 50vh;
+	display: grid;
+	place-items: center start;
+	background: transparent linear-gradient(239deg, #dbedf3 0%, #f73859 100%) 0% 0% no-repeat
+		padding-box;
 }
+
+.sideScroll h2 {
+	font-weight: 400;
+	font-size: 120px;
+	color: #283149;
+	position: relative;
+	right: 800px;
+}
+
 .parallaxOne {
 	background-image: url('/parallax/coffee1.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
+	height: 100vh;
 }

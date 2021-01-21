@@ -13,9 +13,8 @@ export default function useViewPercent(elementRef) {
 			setParallaxPosition(
 				Math.min(
 					Math.max(
-						100 -
-							((scrollPosition - topPosition) * 100) /
-								(height + bottomPosition - topPosition),
+						((scrollPosition - topPosition) * 100) /
+							(height + bottomPosition - topPosition),
 						0
 					),
 					100
