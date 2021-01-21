@@ -2,6 +2,8 @@ import useViewPercent from '../hooks/useViewPercent';
 import { useRef } from 'react';
 import Nav from '../components/nav';
 import style from '../styles/parallax.module.css';
+import ScrollBar from '../components/scrollBar';
+
 export default function Parallax() {
 	const imageOneRef = useRef(null);
 	const perc = useViewPercent(imageOneRef);
@@ -11,7 +13,7 @@ export default function Parallax() {
 
 	const sideScrollRef = useRef(null);
 	const sidePerc = useViewPercent(sideScrollRef);
-	const sideScrollStyle = { transform: `translateX(${sidePerc * 1.41}vw)` };
+	const sideScrollStyle = { transform: `translateX(${sidePerc * 1.3}vw)` };
 	return (
 		<>
 			<Nav />
@@ -28,6 +30,7 @@ export default function Parallax() {
 				</div>
 				<div className={style.filler}></div>
 			</main>
+			<ScrollBar backgroundColor='#283149' barColor='#f73859' />
 		</>
 	);
 }

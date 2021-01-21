@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/index.module.css';
 import Typed from '../components/typed';
-import Link from 'next/link';
 import ClickRipple from '../components/clickRipple';
 import { useState } from 'react';
 import Nav from '../components/nav';
