@@ -3,6 +3,7 @@ import useWindowSize from './useWindowSize';
 
 export default function useAnimationPlaystate(elementRef) {
 	const [elementHeight, setElementHeight] = useState([0, 0, 0]);
+	const [paralaxPosition, setParallaxPosition] = useState(0);
 	const [width, height] = useWindowSize();
 
 	useEffect(() => {
@@ -18,3 +19,5 @@ export default function useAnimationPlaystate(elementRef) {
 	}, [height, width]);
 	return elementHeight;
 }
+
+// Math.min(Math.max(100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize, 0), 100);

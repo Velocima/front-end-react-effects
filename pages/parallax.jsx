@@ -12,10 +12,10 @@ export default function Parallax() {
 		((scrollHeight - imageOneHeight) * 100) / imageOneSize
 	);
 	const parallaxOneStyle = {
-		backgroundPosition: `center max(${Math.max(
-			100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize,
-			0
-		)}%, 100%)`,
+		backgroundPosition: `center ${Math.min(
+			Math.max(100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize, 0),
+			100
+		)}%`,
 	};
 	return (
 		<>

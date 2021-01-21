@@ -30,5 +30,5 @@
 .parallaxOne {
 	background-image: url('/parallax/coffee1.jpg');
 	background-size: cover;
-	/* background-repeat: no-repeat; */
+	background-repeat: no-repeat;
 }
