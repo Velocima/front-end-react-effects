@@ -35,8 +35,7 @@
 	font-weight: 400;
 	font-size: 120px;
 	color: #283149;
-	position: relative;
-	right: 800px;
+	transition: 10ms linear;
 }
 
 .parallaxOne {

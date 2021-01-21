@@ -12,8 +12,8 @@ export default function Parallax() {
 	};
 
 	const sideScrollRef = useRef(null);
-	const sidePerc = useViewPercent(sideScrollRef);
-	const sideScrollStyle = { transform: `translateX(${sidePerc * 1.3}vw)` };
+	const sidePerc = useViewPercent(sideScrollRef, true);
+	const sideScrollStyle = { transform: `translateX(${sidePerc}vw)` };
 	return (
 		<>
 			<Nav />
