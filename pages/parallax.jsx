@@ -4,16 +4,16 @@ import Nav from '../components/nav';
 import style from '../styles/parallax.module.css';
 export default function Parallax() {
 	const imageOneRef = useRef(null);
-	const [imageOneHeight, scrollHeight, height] = useElementHeight(imageOneRef);
+	const [imageOneHeight, scrollHeight, imageOneSize] = useElementHeight(imageOneRef);
 	console.log(
 		scrollHeight,
 		imageOneHeight,
-		height,
-		((scrollHeight - imageOneHeight) * 100) / height
+		imageOneSize,
+		((scrollHeight - imageOneHeight) * 100) / imageOneSize
 	);
 	const parallaxOneStyle = {
-		backgroundPosition: `center min(${Math.max(
-			100 - ((scrollHeight - imageOneHeight) * 100) / height + 500,
+		backgroundPosition: `center max(${Math.max(
+			100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize,
 			0
 		)}%, 100%)`,
 	};

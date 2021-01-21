@@ -6,11 +6,11 @@ export default function useAnimationPlaystate(elementRef) {
 	const [width, height] = useWindowSize();
 
 	useEffect(() => {
-		const topPosition = (element) => element.current.getBoundingClientRect().top;
-		const elementTopPosition = topPosition(elementRef);
+		const topPosition = elementRef.current.getBoundingClientRect().top;
+		const bottomPosition = elementRef.current.getBoundingClientRect().bottom;
 		const onScroll = () => {
 			const scrollPosition = window.scrollY + height;
-			setElementHeight([elementTopPosition, scrollPosition, height]);
+			setElementHeight([topPosition, scrollPosition, height + bottomPosition - topPosition]);
 		};
 		onScroll();
 		window.addEventListener('scroll', onScroll, { passive: true });
