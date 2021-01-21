@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import useWindowSize from './useWindowSize';
 
-export default function useAnimationPlaystate(elementRef) {
-	const [elementHeight, setElementHeight] = useState([0, 0, 0]);
-	const [paralaxPosition, setParallaxPosition] = useState(0);
+export default function useViewPercent(elementRef) {
+	const [parallaxPosition, setParallaxPosition] = useState(0);
 	const [width, height] = useWindowSize();
 
 	useEffect(() => {
@@ -11,13 +10,22 @@ export default function useAnimationPlaystate(elementRef) {
 		const bottomPosition = elementRef.current.getBoundingClientRect().bottom;
 		const onScroll = () => {
 			const scrollPosition = window.scrollY + height;
-			setElementHeight([topPosition, scrollPosition, height + bottomPosition - topPosition]);
+			setParallaxPosition(
+				Math.min(
+					Math.max(
+						100 -
+							((scrollPosition - topPosition) * 100) /
+								(height + bottomPosition - topPosition),
+						0
+					),
+					100
+				)
+			);
 		};
 		onScroll();
 		window.addEventListener('scroll', onScroll, { passive: true });
 		return () => window.removeEventListener('scroll', onScroll);
 	}, [height, width]);
-	return elementHeight;
-}
 
-// Math.min(Math.max(100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize, 0), 100);
+	return parallaxPosition;
+}

@@ -1,21 +1,12 @@
-import useElementHeight from '../hooks/useElementHeight';
+import useViewPercent from '../hooks/useViewPercent';
 import { useRef } from 'react';
 import Nav from '../components/nav';
 import style from '../styles/parallax.module.css';
 export default function Parallax() {
 	const imageOneRef = useRef(null);
-	const [imageOneHeight, scrollHeight, imageOneSize] = useElementHeight(imageOneRef);
-	console.log(
-		scrollHeight,
-		imageOneHeight,
-		imageOneSize,
-		((scrollHeight - imageOneHeight) * 100) / imageOneSize
-	);
+	const perc = useViewPercent(imageOneRef);
 	const parallaxOneStyle = {
-		backgroundPosition: `center ${Math.min(
-			Math.max(100 - ((scrollHeight - imageOneHeight) * 100) / imageOneSize, 0),
-			100
-		)}%`,
+		backgroundPosition: `center ${perc}%`,
 	};
 	return (
 		<>
