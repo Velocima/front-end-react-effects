@@ -1,0 +1,16 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: Center;
+	align-items: center;
+	background-color: #b5deec;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.main h1 {
+	font-weight: 400;
+	font-size: 70px;
+	padding: 30px 0;
+	color: #412283;
+}
