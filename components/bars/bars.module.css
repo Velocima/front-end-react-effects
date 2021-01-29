@@ -1,0 +1,17 @@
+.bar {
+	background-color: #ec4082;
+	width: 100vmax;
+	height: 100px;
+	position: fixed;
+	bottom: 0;
+	animation: barMove 3s linear;
+}
+
+@keyframes barMove {
+	from {
+		transform: translate(-60vmax, 60vmax) rotate(-45deg);
+	}
+	to {
+		transform: translate(120vmax, -120vmax) rotate(-45deg);
+	}
+}

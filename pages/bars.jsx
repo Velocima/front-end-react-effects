@@ -2,8 +2,9 @@ import Head from 'next/head';
 import styles from '../styles/bars.module.css';
 import Nav from '../components/nav';
 import { useState } from 'react';
+import Bars from '../components/bars/bars';
 
-export default function Home() {
+export default function Page() {
 	return (
 		<>
 			<Head>
@@ -13,6 +14,7 @@ export default function Home() {
 			<Nav />
 			<main className={styles.main}>
 				<h1>Hello Bars</h1>
+				<Bars />
 			</main>
 		</>
 	);
