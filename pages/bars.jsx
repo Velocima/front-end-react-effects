@@ -13,7 +13,7 @@ export default function Page() {
 			</Head>
 			<Nav />
 			<main className={styles.main}>
-				<h1>Hello Bars</h1>
+				<h1 style={{ zIndex: 100 }}>Hello Bars</h1>
 				<Bars />
 			</main>
 		</>

@@ -1,45 +1,37 @@
-import { useState, useEffect } from 'react';
 import styles from './bars.module.css';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export default function Bars({ paused }) {
-	const [bars, setBars] = useState([]);
+	const [width, height] = useWindowSize();
 
-	const createBarStyle = (random) => {
+	const createBarStyle = (right) => {
+		const random = Math.random();
 		return {
-			animationDuration: `${5 - random}s`,
-			animationDelay: `${random}s`,
-			height: `${15 + Math.floor(random * 50)}px`,
-			right: `${150 * random - 50}vw`,
+			// animationPlaystate: paused ? 'paused' : 'playing',
+			// animationDuration: `${10 - random * 3}s`,
+			// animationDelay: `${random * 2}s`,
+			height: `${width / 20}px`,
+			right,
 		};
 	};
-
-	useEffect(() => {
-		const getBarID = () => Math.random() * Math.floor(Math.random() * 100 + 100);
-
-		// Adds a bar to state then removes onAnimation finishing
-		const addBar = () => {
-			const barID = getBarID();
-			const randomNumber = Math.random();
-
-			setBars((prevState) => [
-				...prevState,
-				<Bar style={createBarStyle(randomNumber)} key={barID} />,
-			]);
-			setTimeout(() => {
-				setBars((prevState) => prevState.filter((bar) => bar.key != barID));
-			}, 5000 - randomNumber * 1000 + randomNumber * 950);
-		};
-		const timeoutID = setTimeout(() => {
-			addBar();
-			addBar();
-			addBar();
-		}, Math.floor(Math.random() * 1500) + 400);
-		return () => clearTimeout(timeoutID);
-	}, [bars]);
+	const bars = [0].map((bar, i) => <Bar style={createBarStyle(bar)} key={i} />);
 
 	return <>{bars}</>;
 }
 
 const Bar = ({ style }) => {
-	return <div className={styles.bar} style={style}></div>;
+	const [width, height] = useWindowSize();
+	return (
+		<div className={styles.bar} style={style}>
+			<div className={styles.innerBar} style={{ height: `${width / 20}px` }}></div>
+		</div>
+	);
 };
+
+// -1 * ((2 * width) / 6),
+// width / 12,
+// (2 * width) / 6,
+// (3 * width) / 6,
+// (4 * width) / 6,
+// (5 * width) / 6,
+// (6 * width) / 6,
