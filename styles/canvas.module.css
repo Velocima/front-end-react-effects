@@ -13,4 +13,16 @@
 	font-size: 70px;
 	padding: 30px 0;
 	color: #412283;
+	pointer-events: none;
+}
+.main h1::selection {
+	background: #00000000;
+}
+
+.main canvas {
+	position: fixed;
+	top: 0;
+	right: 0;
+	fill: #e7cce5;
+	background-color: #e7cce5;
 }
