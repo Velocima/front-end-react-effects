@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import style from '../styles/typed.module.css';
+import style from './typed.module.css';
 
 export default function Typed({ prefix, words, suffix, textInsertion, isPaused }) {
 	const [isTypingDirectionForward, setIsTypingDirectionForward] = useState(true);
