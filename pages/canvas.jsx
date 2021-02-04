@@ -6,13 +6,12 @@ import useWindowSize from '../hooks/useWindowSize';
 
 export default function Page() {
 	const [width, height] = useWindowSize();
-	const [isPlaying, setIsPlaying] = useState(true);
 	const canvasRef = useRef(null);
 
 	class Ball {
 		constructor(ctx, width, height) {
-			this.x = Math.floor(Math.random() * 1000);
-			this.y = Math.floor(Math.random() * 1000);
+			this.x = Math.floor(Math.random() * width);
+			this.y = Math.floor(Math.random() * height);
 			this.ctx = ctx;
 		}
 		vx = 5;
@@ -30,11 +29,8 @@ export default function Page() {
 
 	const createBalls = (volume, ctx) => {
 		let newBalls = [];
-		console.log(volume);
-		console.log(ctx);
 		for (let i = 0; i < volume; i++) {
 			newBalls[i] = new Ball(ctx, width, height);
-			console.log(newBalls[i].x);
 		}
 		return newBalls;
 	};
@@ -44,8 +40,6 @@ export default function Page() {
 		const ctx = canvas.getContext('2d');
 		const balls = createBalls(200, ctx);
 		let raf;
-		console.log('useEffect');
-		console.log(balls);
 
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,9 +87,10 @@ export default function Page() {
 				}
 			}
 		};
+
 		window.addEventListener('click', onClick);
 		return () => window.removeEventListener('click', onClick);
-	}, [isPlaying]);
+	}, [width, height]);
 	return (
 		<>
 			<Head>
