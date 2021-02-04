@@ -63,6 +63,46 @@ export default function Page() {
 				this.radius = 5 + Math.floor(Math.random() * 20);
 			}
 		}
+		handleMouseOver({ clientX, clientY }) {
+			const pxMin = width < height ? width / 5 : height / 5;
+
+			if (Math.abs(this.x - clientX) < pxMin && Math.abs(this.y - clientY) < pxMin) {
+				let vxD =
+					((this.x - clientX) / Math.abs(this.x - clientX)) *
+					(1 - Math.abs(this.x - clientX) / pxMin);
+				let vyD =
+					((this.y - clientY) / Math.abs(this.y - clientY)) *
+					(1 - Math.abs(this.y - clientY) / pxMin);
+
+				if (this.x > clientX && this.vx > 0) {
+					this.vx -= vxD / 5;
+				} else {
+					this.vx -= vxD / 30;
+				}
+				if (this.y > clientY && this.vy > 0) {
+					this.vy -= vyD / 5;
+				} else {
+					this.vy -= vyD / 30;
+				}
+			}
+		}
+		handleClick({ clientX, clientY }) {
+			const pxMin = width < height ? width / 5 : height / 5;
+
+			if (Math.abs(this.x - clientX) < pxMin && Math.abs(this.y - clientY) < pxMin) {
+				// Check
+				const vxDir = this.x - clientX > 1 ? -1 : 1;
+				const vyDir = this.y - clientY > 1 ? -1 : 1;
+				// vector direction
+				const vxD = 1 + Math.abs(this.x - clientX) / pxMin;
+				const vyD = 1 + Math.abs(this.y - clientY) / pxMin;
+				// vector force
+				const force = 0.5 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
+				// resultant velocity
+				this.vx = vxDir * vxD * force;
+				this.vy = vyDir * vyD * force;
+			}
+		}
 	}
 
 	const createBalls = (volume, ctx) => {
@@ -94,6 +134,15 @@ export default function Page() {
 		for (let ball of balls) {
 			ball.draw();
 		}
+
+		const onClick = (e) => {
+			for (let ball of balls) {
+				ball.handleClick(e);
+			}
+		};
+
+		window.addEventListener('click', onClick);
+		return () => window.removeEventListener('click', onClick);
 	}, [width, height]);
 	return (
 		<>
