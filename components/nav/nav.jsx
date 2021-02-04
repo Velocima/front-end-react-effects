@@ -11,6 +11,7 @@ export default function Nav() {
 	};
 	const navStyle = {
 		opacity: isOpen ? 1 : 0,
+		pointerEvents: isOpen ? 'all' : 'none',
 	};
 	return (
 		<>
