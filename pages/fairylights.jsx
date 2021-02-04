@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/fairylights.module.css';
 import Nav from '../components/nav/nav';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
 export default function Page() {
@@ -17,6 +17,8 @@ export default function Page() {
 			};
 			this.ctx = ctx;
 		}
+		cursorX = 0;
+		cursorY = 0;
 		opacity = 0;
 		x = Math.floor(Math.random() * width);
 		y = Math.floor(Math.random() * height);
@@ -33,6 +35,29 @@ export default function Page() {
 			this.ctx.fill();
 		}
 		updatePosition(canvas) {
+			const pxMin = width < height ? width / 5 : height / 5;
+			if (
+				Math.abs(this.x - this.cursorX) < pxMin &&
+				Math.abs(this.y - this.cursorY) < pxMin
+			) {
+				let vxD =
+					((this.x - this.cursorX) / Math.abs(this.x - this.cursorX)) *
+					(1 - Math.abs(this.x - this.cursorX) / pxMin);
+				let vyD =
+					((this.y - this.cursorY) / Math.abs(this.y - this.cursorY)) *
+					(1 - Math.abs(this.y - this.cursorY) / pxMin);
+
+				if (this.x > this.cursorX && this.vx > 0) {
+					this.vx -= vxD / 100;
+				} else {
+					this.vx -= vxD / 150;
+				}
+				if (this.y > this.cursorY && this.vy > 0) {
+					this.vy -= vyD / 100;
+				} else {
+					this.vy -= vyD / 150;
+				}
+			}
 			if (this.y + this.vy > canvas.height || this.y + this.vy < 0) {
 				this.vy = -this.vy;
 			}
@@ -63,29 +88,6 @@ export default function Page() {
 				this.radius = 5 + Math.floor(Math.random() * 20);
 			}
 		}
-		handleMouseOver({ clientX, clientY }) {
-			const pxMin = width < height ? width / 5 : height / 5;
-
-			if (Math.abs(this.x - clientX) < pxMin && Math.abs(this.y - clientY) < pxMin) {
-				let vxD =
-					((this.x - clientX) / Math.abs(this.x - clientX)) *
-					(1 - Math.abs(this.x - clientX) / pxMin);
-				let vyD =
-					((this.y - clientY) / Math.abs(this.y - clientY)) *
-					(1 - Math.abs(this.y - clientY) / pxMin);
-
-				if (this.x > clientX && this.vx > 0) {
-					this.vx -= vxD / 5;
-				} else {
-					this.vx -= vxD / 30;
-				}
-				if (this.y > clientY && this.vy > 0) {
-					this.vy -= vyD / 5;
-				} else {
-					this.vy -= vyD / 30;
-				}
-			}
-		}
 		handleClick({ clientX, clientY }) {
 			const pxMin = width < height ? width / 5 : height / 5;
 
@@ -97,11 +99,15 @@ export default function Page() {
 				const vxD = 1 + Math.abs(this.x - clientX) / pxMin;
 				const vyD = 1 + Math.abs(this.y - clientY) / pxMin;
 				// vector force
-				const force = 0.5 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
+				const force = 0.8 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
 				// resultant velocity
 				this.vx = vxDir * vxD * force;
 				this.vy = vyDir * vyD * force;
 			}
+		}
+		updateCursor(mouseX, mouseY) {
+			this.cursorX = mouseX;
+			this.cursorY = mouseY;
 		}
 	}
 
@@ -116,7 +122,7 @@ export default function Page() {
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
-		let balls = createBalls(50, ctx);
+		const balls = createBalls(100, ctx);
 
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,10 +146,19 @@ export default function Page() {
 				ball.handleClick(e);
 			}
 		};
-
+		const onMousemove = ({ clientX, clientY }) => {
+			for (let ball of balls) {
+				ball.updateCursor(clientX, clientY);
+			}
+		};
 		window.addEventListener('click', onClick);
-		return () => window.removeEventListener('click', onClick);
+		window.addEventListener('mousemove', onMousemove);
+		return () => {
+			window.removeEventListener('click', onClick);
+			window.removeEventListener('mousemove', onMousemove);
+		};
 	}, [width, height]);
+
 	return (
 		<>
 			<Head>
