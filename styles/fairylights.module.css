@@ -1,0 +1,17 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: #4f5658;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.main canvas {
+	position: fixed;
+	top: 0;
+	right: 0;
+	fill: #e7cce5;
+	background-color: #020101;
+}

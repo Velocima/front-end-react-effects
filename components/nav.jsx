@@ -2,7 +2,7 @@ import Link from 'next/link';
 import style from '../styles/nav.module.css';
 
 export default function Nav() {
-	const pages = ['/', '/parallax', '/bars', '/canvas'];
+	const pages = ['/', '/parallax', '/bars', '/canvas', '/fairylights'];
 	return (
 		<>
 			<nav className={style.nav}>
