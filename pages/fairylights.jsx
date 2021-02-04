@@ -9,7 +9,7 @@ export default function Page() {
 	const canvasRef = useRef(null);
 
 	class Ball {
-		constructor(ctx, width, height) {
+		constructor(ctx) {
 			this.color = {
 				r: Math.floor(Math.random() * 255),
 				g: Math.floor(Math.random() * 255),
@@ -24,12 +24,23 @@ export default function Page() {
 		vx = Math.random() / 4 - 0.125;
 		vy = Math.random() / 4 - 0.125;
 		radius = 5 + Math.floor(Math.random() * 20);
+
 		draw() {
 			this.ctx.beginPath();
 			this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
 			this.ctx.closePath();
 			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${this.opacity})`;
 			this.ctx.fill();
+		}
+		updatePosition(canvas) {
+			if (this.y + this.vy > canvas.height || this.y + this.vy < 0) {
+				this.vy = -this.vy;
+			}
+			if (this.x + this.vx > canvas.width || this.x + this.vx < 0) {
+				this.vx = -this.vx;
+			}
+			this.x += this.vx;
+			this.y += this.vy;
 		}
 		updateColor() {
 			this.opacity += this.vOpacity;
@@ -69,19 +80,11 @@ export default function Page() {
 
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			console.log('draw');
+
 			for (let ball of balls) {
 				ball.draw();
 				ball.updateColor();
-				// movement
-				if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
-					ball.vy = -ball.vy;
-				}
-				if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
-					ball.vx = -ball.vx;
-				}
-				ball.x += ball.vx;
-				ball.y += ball.vy;
+				ball.updatePosition(canvas);
 			}
 			window.requestAnimationFrame(draw);
 		}
