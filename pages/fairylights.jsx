@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/fairylights.module.css';
-import Nav from '../components/nav';
+import Nav from '../components/nav/nav';
 import { useEffect, useState, useRef } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 

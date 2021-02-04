@@ -1,6 +1,6 @@
 import useViewPercent from '../hooks/useViewPercent';
 import { useRef } from 'react';
-import Nav from '../components/nav';
+import Nav from '../components/nav/nav';
 import style from '../styles/parallax.module.css';
 import ScrollBar from '../components/scrollBar';
 

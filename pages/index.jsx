@@ -3,7 +3,7 @@ import styles from '../styles/index.module.css';
 import Typed from '../components/typed';
 import ClickRipple from '../components/clickRipple';
 import { useState } from 'react';
-import Nav from '../components/nav';
+import Nav from '../components/nav/nav';
 
 export default function Home() {
 	const [isClickRippleOffset, setIsClickRippleOffset] = useState(false);

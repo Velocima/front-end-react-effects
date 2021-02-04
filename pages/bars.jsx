@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/bars.module.css';
-import Nav from '../components/nav';
+import Nav from '../components/nav/nav';
 import { useState } from 'react';
 import Bars from '../components/bars/bars';
 
