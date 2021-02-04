@@ -35,27 +35,30 @@ export default function Page() {
 			this.ctx.fill();
 		}
 		updatePosition(canvas) {
-			const pxMin = width < height ? width / 5 : height / 5;
+			const pxMin = width < height ? width / 3 : height / 3;
 			if (
 				Math.abs(this.x - this.cursorX) < pxMin &&
 				Math.abs(this.y - this.cursorY) < pxMin
 			) {
-				let vxD =
-					((this.x - this.cursorX) / Math.abs(this.x - this.cursorX)) *
-					(1 - Math.abs(this.x - this.cursorX) / pxMin);
-				let vyD =
-					((this.y - this.cursorY) / Math.abs(this.y - this.cursorY)) *
-					(1 - Math.abs(this.y - this.cursorY) / pxMin);
+				// vector direction
+				const vxDir = this.x - this.cursorX > 1 ? -1 : 1;
+				const vyDir = this.y - this.cursorY > 1 ? -1 : 1;
+				// vector scale
+				const vxD = 1 + Math.abs(this.x - this.cursorX) / pxMin;
+				const vyD = 1 + Math.abs(this.y - this.cursorY) / pxMin;
+				// vector force
+				const force = -0.005 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
+				// resultant velocity
 
 				if (this.x > this.cursorX && this.vx > 0) {
-					this.vx -= vxD / 100;
+					this.vx += vxDir * vxD * force * 2;
 				} else {
-					this.vx -= vxD / 150;
+					this.vx += vxDir * vxD * force;
 				}
 				if (this.y > this.cursorY && this.vy > 0) {
-					this.vy -= vyD / 100;
+					this.vy += vyDir * vyD * force * 2;
 				} else {
-					this.vy -= vyD / 150;
+					this.vy += vyDir * vyD * force;
 				}
 			}
 			if (this.y + this.vy > canvas.height || this.y + this.vy < 0) {
@@ -89,17 +92,17 @@ export default function Page() {
 			}
 		}
 		handleClick({ clientX, clientY }) {
-			const pxMin = width < height ? width / 5 : height / 5;
+			const pxMin = width < height ? width / 4 : height / 4;
 
 			if (Math.abs(this.x - clientX) < pxMin && Math.abs(this.y - clientY) < pxMin) {
-				// Check
+				// vector direction
 				const vxDir = this.x - clientX > 1 ? -1 : 1;
 				const vyDir = this.y - clientY > 1 ? -1 : 1;
-				// vector direction
+				// vector scale
 				const vxD = 1 + Math.abs(this.x - clientX) / pxMin;
 				const vyD = 1 + Math.abs(this.y - clientY) / pxMin;
 				// vector force
-				const force = 0.8 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
+				const force = 1.5 / (1 - Math.sqrt(vxD * vxD + vyD * vyD));
 				// resultant velocity
 				this.vx = vxDir * vxD * force;
 				this.vy = vyDir * vyD * force;
@@ -122,7 +125,7 @@ export default function Page() {
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
-		const balls = createBalls(100, ctx);
+		const balls = createBalls(70, ctx);
 
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
