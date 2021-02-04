@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useWindowSize from '../hooks/useWindowSize';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export default function scrollBar({ backgroundColor, barColor }) {
 	const [scrollPercentage, setScrollPercentage] = useState(0);

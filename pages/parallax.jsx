@@ -2,7 +2,7 @@ import useViewPercent from '../hooks/useViewPercent';
 import { useRef } from 'react';
 import Nav from '../components/nav/nav';
 import style from '../styles/parallax.module.css';
-import ScrollBar from '../components/scrollBar';
+import ScrollBar from '../components/scrollBar/scrollBar';
 
 export default function Parallax() {
 	const imageOneRef = useRef(null);

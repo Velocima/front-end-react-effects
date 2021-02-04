@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import style from '../styles/clickRipple.module.css';
+import style from './clickRipple.module.css';
 
 export default function ClickRipple({ offCenter }) {
 	const [ripples, setRipples] = useState([]);
