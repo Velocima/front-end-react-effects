@@ -20,6 +20,7 @@ export default function Page() {
 		cursorX = 0;
 		cursorY = 0;
 		opacity = 0;
+		opacityBuff = 0;
 		x = Math.floor(Math.random() * width);
 		y = Math.floor(Math.random() * height);
 		vOpacity = 0.0005 + Math.random() * 0.001;
@@ -31,7 +32,9 @@ export default function Page() {
 			this.ctx.beginPath();
 			this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
 			this.ctx.closePath();
-			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${this.opacity})`;
+			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${
+				this.opacity + this.opacityBuff
+			})`;
 			this.ctx.fill();
 		}
 		updatePosition(canvas) {
@@ -72,10 +75,12 @@ export default function Page() {
 		}
 		updateColor() {
 			this.opacity += this.vOpacity;
+			// reverse opacity once peak is reached
 			if (this.opacity >= 0.5) {
 				this.opacity = 0.5;
 				this.vOpacity *= -1;
 			}
+			// gen new ball once opacity reaches 0
 			if (this.opacity <= 0) {
 				this.opacity = 0;
 				this.vOpacity = 0.0005 + Math.random() * 0.001;
@@ -89,6 +94,19 @@ export default function Page() {
 				this.x = Math.floor(Math.random() * width);
 				this.y = Math.floor(Math.random() * height);
 				this.radius = 5 + Math.floor(Math.random() * 20);
+				this.opacityBuff = 0;
+			}
+			// update opacityBuff for balls close to mouse
+			const pxMin = width < height ? width / 4 : height / 4;
+
+			if (
+				Math.abs(this.x - this.cursorX) < pxMin &&
+				Math.abs(this.y - this.cursorY) < pxMin
+			) {
+				const dx = Math.abs(this.x - this.cursorX);
+				const dy = Math.abs(this.y - this.cursorY);
+				const vo = this.opacity * 0.5 * (1 - Math.sqrt(dx * dx + dy * dy) / pxMin);
+				this.opacityBuff = vo;
 			}
 		}
 		handleClick({ clientX, clientY }) {
