@@ -81,21 +81,8 @@ export default function Page() {
 				this.vOpacity *= -1;
 			}
 			// gen new ball once opacity reaches 0
-			if (this.opacity <= 0) {
-				this.opacity = 0;
-				this.vOpacity = 0.0005 + Math.random() * 0.001;
-				this.color = {
-					r: Math.floor(Math.random() * 255),
-					g: Math.floor(Math.random() * 255),
-					b: Math.floor(Math.random() * 255),
-				};
-				this.vx = Math.random() / 4 - 0.125;
-				this.vy = Math.random() / 4 - 0.125;
-				this.x = Math.floor(Math.random() * width);
-				this.y = Math.floor(Math.random() * height);
-				this.radius = 5 + Math.floor(Math.random() * 20);
-				this.opacityBuff = 0;
-			}
+			if (this.opacity <= 0) this.resetBall();
+
 			// update opacityBuff for balls close to mouse
 			const pxMin = width < height ? width / 4 : height / 4;
 
@@ -107,7 +94,24 @@ export default function Page() {
 				const dy = Math.abs(this.y - this.cursorY);
 				const vo = this.opacity * 0.5 * (1 - Math.sqrt(dx * dx + dy * dy) / pxMin);
 				this.opacityBuff = vo;
+			} else {
+				this.opacityBuff = 0;
 			}
+		}
+		resetBall() {
+			this.opacity = 0;
+			this.vOpacity = 0.0005 + Math.random() * 0.001;
+			this.color = {
+				r: Math.floor(Math.random() * 255),
+				g: Math.floor(Math.random() * 255),
+				b: Math.floor(Math.random() * 255),
+			};
+			this.vx = Math.random() / 4 - 0.125;
+			this.vy = Math.random() / 4 - 0.125;
+			this.x = Math.floor(Math.random() * width);
+			this.y = Math.floor(Math.random() * height);
+			this.radius = 5 + Math.floor(Math.random() * 20);
+			this.opacityBuff = 0;
 		}
 		handleClick({ clientX, clientY }) {
 			const pxMin = width < height ? width / 4 : height / 4;
