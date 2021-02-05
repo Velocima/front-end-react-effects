@@ -26,14 +26,46 @@ export default function Page() {
 		vOpacity = 0.0005 + Math.random() * 0.001;
 		vx = Math.random() / 4 - 0.125;
 		vy = Math.random() / 4 - 0.125;
-		radius = 5 + Math.floor(Math.random() * 20);
+		radius = 10 + Math.floor(Math.random() * 15);
 
 		draw() {
+			// Main ball
 			this.ctx.beginPath();
 			this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
 			this.ctx.closePath();
 			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${
 				this.opacity + this.opacityBuff
+			})`;
+			this.ctx.fill();
+
+			// inner glow
+			this.ctx.beginPath();
+			this.ctx.arc(
+				this.x + Math.random() - 0.5 + (2 * this.x - width) / width,
+				this.y + Math.random() - 0.5 + (2 * this.y - height) / height,
+				this.radius + (25 - this.radius) / 5,
+				0,
+				Math.PI * 2,
+				true
+			);
+			this.ctx.closePath();
+			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${
+				0.2 * (this.opacity + this.opacityBuff)
+			})`;
+			this.ctx.fill();
+			// outer glow
+			this.ctx.beginPath();
+			this.ctx.arc(
+				this.x + Math.random() - 0.5 + (2 * this.x - width) / width,
+				this.y + Math.random() - 0.5 + (2 * this.y - height) / height,
+				this.radius + (25 - this.radius) / 4,
+				0,
+				Math.PI * 2,
+				true
+			);
+			this.ctx.closePath();
+			this.ctx.fillStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},${
+				0.1 * (this.opacity + this.opacityBuff)
 			})`;
 			this.ctx.fill();
 		}
@@ -110,7 +142,7 @@ export default function Page() {
 			this.vy = Math.random() / 4 - 0.125;
 			this.x = Math.floor(Math.random() * width);
 			this.y = Math.floor(Math.random() * height);
-			this.radius = 5 + Math.floor(Math.random() * 20);
+			this.radius = 10 + Math.floor(Math.random() * 15);
 			this.opacityBuff = 0;
 		}
 		handleClick({ clientX, clientY }) {
@@ -147,7 +179,7 @@ export default function Page() {
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
-		const balls = createBalls(70, ctx);
+		const balls = createBalls(50, ctx);
 
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
